@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: hackrx-api
+    env: python
+    buildCommand: |
+      python -m venv .venv
+      source .venv/bin/activate
+      pip install --upgrade pip
+      pip install --no-cache-dir --prefer-binary -r requirements.txt
+      python cache_model.py
+    startCommand: uvicorn main:app --host 0.0.0.0 --port=$PORT
