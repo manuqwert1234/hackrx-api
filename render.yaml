@@ -2,12 +2,9 @@ services:
   - type: web
     name: hackrx-api
     env: python
-    python:
-      version: "3.11.0"
-    buildCommand: |
-      python -m venv .venv
-      source .venv/bin/activate
-      pip install --upgrade pip
-      pip install --no-cache-dir --prefer-binary -r requirements.txt
-      python cache_model.py
-    startCommand: uvicorn main:app --host 0.0.0.0 --port=$PORT
+    plan: free # Or your preferred plan
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn api.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
